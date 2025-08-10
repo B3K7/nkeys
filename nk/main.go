@@ -25,7 +25,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/nats-io/nkeys"
+	"github.com/b3k7/nkeys"
 )
 
 // this will be set during compilation when a release is made on tools

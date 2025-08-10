@@ -61,6 +61,7 @@ func (p *pub) Verify(input []byte, sig []byte) error {
 
 // Wipe will randomize the public key and erase the pre byte.
 func (p *pub) Wipe() {
+	var err error
 	p.pre = '0'
 	_, err = io.ReadFull(rand.Reader, p.pub)
 

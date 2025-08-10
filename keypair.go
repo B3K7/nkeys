@@ -68,6 +68,7 @@ func (pair *kp) keys() (ed25519.PublicKey, ed25519.PrivateKey, error) {
 
 // Wipe will randomize the contents of the seed key
 func (pair *kp) Wipe() {
+	var err error
 	_, err = io.ReadFull(rand.Reader, pair.seed)
 	if err != nil {
 		log.Fatal(err)
