@@ -176,6 +176,7 @@ func (pair *ckp) Open(input []byte, sender string) ([]byte, error) {
 
 // Wipe will randomize the contents of the secret key
 func (pair *ckp) Wipe() {
+	var err error
 	_, err = io.ReadFull(rand.Reader, pair.seed[:])
 
 	if err != nil {
