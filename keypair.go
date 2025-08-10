@@ -18,6 +18,7 @@ import (
 	"crypto/ed25519"
 	"crypto/rand"
 	"io"
+	"log"
 )
 
 // kp is the internal struct for a kepypair using seed.
@@ -67,7 +68,10 @@ func (pair *kp) keys() (ed25519.PublicKey, ed25519.PrivateKey, error) {
 
 // Wipe will randomize the contents of the seed key
 func (pair *kp) Wipe() {
-	io.ReadFull(rand.Reader, pair.seed)
+	_, err = io.ReadFull(rand.Reader, pair.seed)
+	if err != nil {
+		log.Fatal(err)
+	}
 	pair.seed = nil
 }
 

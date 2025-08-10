@@ -17,6 +17,7 @@ import (
 	"crypto/ed25519"
 	"crypto/rand"
 	"io"
+	"log"
 )
 
 // A KeyPair from a public key capable of verifying only.
@@ -61,7 +62,11 @@ func (p *pub) Verify(input []byte, sig []byte) error {
 // Wipe will randomize the public key and erase the pre byte.
 func (p *pub) Wipe() {
 	p.pre = '0'
-	io.ReadFull(rand.Reader, p.pub)
+	_, err = io.ReadFull(rand.Reader, p.pub)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func (p *pub) Seal(input []byte, recipient string) ([]byte, error) {

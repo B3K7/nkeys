@@ -19,6 +19,7 @@ import (
 	"crypto/rand"
 	"encoding/binary"
 	"io"
+	"log"
 
 	"golang.org/x/crypto/curve25519"
 	"golang.org/x/crypto/nacl/box"
@@ -175,7 +176,11 @@ func (pair *ckp) Open(input []byte, sender string) ([]byte, error) {
 
 // Wipe will randomize the contents of the secret key
 func (pair *ckp) Wipe() {
-	io.ReadFull(rand.Reader, pair.seed[:])
+	_, err = io.ReadFull(rand.Reader, pair.seed[:])
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func (pair *ckp) Sign(_ []byte) ([]byte, error) {
